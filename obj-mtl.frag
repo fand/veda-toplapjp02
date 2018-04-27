@@ -3,6 +3,7 @@
   frameskip: 1,
   vertexMode: "TRIANGLES",
   // vertexMode: "LINES",
+  audio: true,
   PASSES: [{
     MODEL: {
       // PATH: './models/Pokemon.obj',
@@ -27,6 +28,7 @@ uniform sampler2D material0;
 uniform sampler2D pass1;
 uniform sampler2D backbuffer;
 uniform vec2 resolution;
+uniform float volume;
 varying vec2 vUv;
 
 varying vec4 v_color;
@@ -38,12 +40,14 @@ void main() {
 
   if (PASSINDEX == 0) {
     gl_FragColor = texture2D(material0, vUv);
-    gl_FragColor += texture2D(video, fract(vUv * 2. + time * .3)) * (sin(time) * 0.5 + 0.5);
+    gl_FragColor += texture2D(video, fract(vUv * 2. + time * .3)) * volume * 2.;
   }
   if (PASSINDEX == 1) {
     gl_FragColor = texture2D(pass1, uv);
     if (gl_FragColor.a < .5) {
+      uv = (uv - .5) * (1. + volume) + .5;
       gl_FragColor = texture2D(video, abs(uv - .5)) * 2. - 1.;
+      gl_FragColor *= 0.3;
     }
   }
 }

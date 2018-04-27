@@ -6,7 +6,8 @@
       PATH: './models/Pokemon.obj',
       PATH: './models/apple.obj',
     },
-  }]
+  }],
+  audio: true,
 }*/
 precision mediump float;
 attribute vec3 position;
@@ -19,6 +20,7 @@ uniform mat4 modelViewMatrix;
 uniform mat3 uvTransform;
 uniform float time;
 uniform vec2 resolution;
+uniform float volume;
 varying vec2 vUv;
 varying float vObjectId;
 varying vec4 v_color;
@@ -65,7 +67,7 @@ void main() {
 
     // pos *= 1. + sin(vertexId * 0.1 + time);
     // pos *= .5 + noise(vec2(vertexId * 0.001 + time * 0.3, time * 0.1));
-    // pos *= 1. + noise(pos.xy * 10. + time) * 0.3;
+    pos *= 1. + noise(pos.xy * 10. + time) * volume * 0.3;
 
     pos.x *= resolution.y / resolution.x;
     gl_Position = projectionMatrix * modelViewMatrix * vec4(pos, 1.0);

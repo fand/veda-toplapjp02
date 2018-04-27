@@ -46,7 +46,7 @@ void main() {
     // uv = rotate(uv - .5, time * .3) + .5;
 
     // ズーム
-    // uv = (uv - .5) * fract(time) + .5;
+    // uv = (uv - .5) * fract(time * 0.3) + .5;
 
     // 座標ゆがませ
     // uv -= .5;
@@ -62,7 +62,7 @@ void main() {
     // ランダムにx座標ずらし
     // float r = random(vec2(uv.y * .001, time)); // 0 to 1
     // if (r < .1) {
-    //     uv.x += r * .1;
+    //     uv.x += r * .2;
     // }
 
     // 本体

@@ -8,7 +8,7 @@ void main() {
     // 色は Red, Green, Blue, Alpha(不透明度) で表す
     gl_FragColor = vec4(0.0, 0.5, 0.7, 1.0);
 
-    vec3 color = vec3(0.0);
+    vec3 color = gl_FragColor.xyz;
 
     // gl_FragCoord には、ピクセルの位置情報が入っている
     // そのため、resolutionで割ると 0~1の範囲になる

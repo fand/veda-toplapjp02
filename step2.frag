@@ -12,7 +12,7 @@ void main() {
     float angle = 0.0;
 
     // 原点からの距離を表示
-    // color = vec3(length(p));
+    color = vec3(length(p));
 
     // 距離で割る
     // color = vec3(0.1 / length(p));

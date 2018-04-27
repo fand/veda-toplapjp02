@@ -5,10 +5,10 @@
   // vertexMode: "LINES",
   PASSES: [{
     MODEL: {
-      PATH: './models/Pokemon.obj',
-      MATERIAL: './models/Pokemon.mtl',
-      // PATH: './models/apple.obj',
-      // MATERIAL: './models/apple.mtl',
+      // PATH: './models/Pokemon.obj',
+      // MATERIAL: './models/Pokemon.mtl',
+      PATH: './models/apple.obj',
+      MATERIAL: './models/apple.mtl',
     },
     vs: './obj-mtl.vert',
     fs: './obj-mtl.frag',

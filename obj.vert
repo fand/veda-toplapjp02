@@ -27,6 +27,10 @@ varying float vObjectId;
 varying vec4 v_color;
 #define PI 3.141592
 
+/**
+ * イージング関数
+ * スムーズなアニメーションに利用する
+ */
 float ease(in float t) {
     return t == 0.0 || t == 1.0
         ? t
@@ -70,22 +74,26 @@ void main() {
     vec3 color = normal;
 
     // モデルを回転させる
-    // pos.xz = rotate(pos.xz, time * 0.2);
-    // pos.yz = rotate(pos.yz, 0.2);
+    pos.xz = rotate(pos.xz, time * 0.2);
+    pos.yz = rotate(pos.yz, 0.2);
+
+    // 頂点をズラす
+    // pos.x += sin(vertexId + time) * 0.2;
 
     // 頂点を歪ませる
     // 原点からの距離が 0.8倍〜1.2倍される
     // pos *= 1.0 + sin(vertexId + time) * 0.2;
 
     // 球体とモーフィング
-    float t = clamp(sin(time) * 1.2, -1., 1.) * 0.5 + 0.5;
-    pos = mix(pos, sphere(vertexId, vertexCount) * 0.5, t);
-    pos.xz = rotate(pos.xz, time * 0.2);
-    pos.yz = rotate(pos.yz, 0.2);
+    // float t = clamp(sin(time) * 1.2, -1., 1.) * 0.5 + 0.5;
+    // pos = mix(pos, sphere(vertexId, vertexCount) * 0.5, t);
+    // pos.xz = rotate(pos.xz, time * 0.2);
+    // pos.yz = rotate(pos.yz, 0.2);
 
     color = (abs(position.xzy) + .1) * 2.;
 
-    pos.x *= resolution.y / resolution.x;
+    // 以下は触らないで！
+    pos.x *= resolution.y / resolution.x; // アスペクト比を修正
     gl_Position = vec4(pos, 1.0);
     gl_PointSize = 3.;
     v_color = vec4(color, 1) * 0.7;

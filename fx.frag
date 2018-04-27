@@ -1,17 +1,22 @@
 /*{
     IMPORTED: {
-        video1: { PATH: './videos/1.mp4' },
-        video2: { PATH: './videos/2.mp4' },
-        video3: { PATH: './videos/3.mp4' },
+        video: { PATH: './videos/1.mp4' },
+        // video: { PATH: './videos/2.mp4' },
+        // video: { PATH: './videos/3.mp4' },
+
+        v1: { PATH: './videos/1.mp4' },
+        v2: { PATH: './videos/2.mp4' },
+        v3: { PATH: './videos/3.mp4' },
         name: { PATH: './images/name.png' },
     }
 }*/
 precision mediump float;
 uniform float time;
 uniform vec2 resolution;
-uniform sampler2D video1;
-uniform sampler2D video2;
-uniform sampler2D video3;
+uniform sampler2D video;
+uniform sampler2D v1;
+uniform sampler2D v2;
+uniform sampler2D v3;
 uniform sampler2D backbuffer;
 uniform sampler2D name;
 
@@ -62,7 +67,7 @@ void main() {
 
     // 本体
     float t = time * .3;
-    gl_FragColor = texture2D(video1, uv) * 0.3;
+    gl_FragColor = texture2D(video, uv) * 0.3;
     gl_FragColor += texture2D(name, uv);
 
     // お手軽RGBずらし
@@ -71,9 +76,20 @@ void main() {
 
     // 部分的にRGBずらし
     // 名前の部分だけずらし
-    // float r = random(vec2(uv * .00003) + time * .3);
+    // float r = random(vec2(uv * .001) + time * .3);
     // if (r < .2) {
     //     gl_FragColor.r += texture2D(name, uv + vec2(.01, 0.)).b;
     //     gl_FragColor.b += texture2D(name, uv - vec2(.01, 0.)).g;
     // }
+
+    // 動画のブレンド
+    // gl_FragColor = texture2D(v1, uv) + texture2D(v3, uv);
+    // gl_FragColor = texture2D(v1, uv) - texture2D(v3, uv);
+    // gl_FragColor = texture2D(v1, uv) * texture2D(v3, uv);
+    // gl_FragColor = texture2D(v1, uv) / texture2D(v3, uv);
+
+    // 画像をディスプレイスメントマップとして使う
+    // float d = texture2D(name, uv).r * 0.1;
+    // // d = texture2D(v3, uv).r * 0.1;
+    // gl_FragColor = texture2D(video, uv + d);
 }
